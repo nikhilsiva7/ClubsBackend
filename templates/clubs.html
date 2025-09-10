@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clubs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Our Clubs</h1>
+        <a href="/"  class=" btn btn-primary">Home Page</a>
+        <form class="d-flex mb-3" method="get" action="">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search clubs..." value="{{ query }}">
+             <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+        <div class="row">
+            {% if clubs%}
+            {% for club in clubs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ club.logo.url }}" class="card-img-top" alt="{{ club.name }}" style="object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ club.name }}</h5>
+                            <a href="{% url 'club_details' club.id %}" class="btn btn-primary">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>no clubs found matching "{{query}}"</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
